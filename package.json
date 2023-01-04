@@ -1,0 +1,10 @@
+{
+  "name": "alimentation",
+  "version": "1.0.0",
+  "description": "Appli Alim",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass asset/sass/index.scss asset/css/app.css --watch --style=compressed"
+  }
+}
