@@ -239,7 +239,21 @@ include_once('includes/header.php');
                         </div>
                     </div>
 
-
+                    <div class="col">
+                        <div class="card" style="width: 14rem;">
+                            <img src="photoImmo/Maison2.jpg" class="card-img-top" alt="photoImmo/App1.jpg">
+                            <div class="card-body">
+                                <h5 class="card-title">test merge Git</h5>
+                                <p class="card-text">Appartement à vendre
+                                    2 pièces
+                                    1 chambre
+                                    45 m²
+                                    Étage 5/6
+                                    379 000 €
+                                    Quartier Grenier Point du Jour à Boulogne-Billancourt (92100).</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
