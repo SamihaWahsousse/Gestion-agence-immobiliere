@@ -243,7 +243,7 @@ include_once('includes/header.php');
                         <div class="card" style="width: 14rem;">
                             <img src="photoImmo/Maison2.jpg" class="card-img-top" alt="photoImmo/App1.jpg">
                             <div class="card-body">
-                                <h5 class="card-title">test merge Git</h5>
+                                <h5 class="card-title">fin de test</h5>
                                 <p class="card-text">Appartement à vendre
                                     2 pièces
                                     1 chambre
