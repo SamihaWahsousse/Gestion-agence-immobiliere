@@ -1,0 +1,36 @@
+
+
+body{
+    background-color:white;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+
+
+
+//changement icon dropdown
+.dropdown-toggle::after {
+    display: none !important;
+}
+//changement de spacing entre les nav-items
+.navbar-nav>li{
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+
+.nav-item:hover {
+ background-color: #004E2A;
+  }
+  
+  .nav-link:hover {
+    color:white;
+  }
+
+  footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }

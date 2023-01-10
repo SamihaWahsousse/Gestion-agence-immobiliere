@@ -1,10 +1,10 @@
 {
-  "name": "alimentation",
+  "name": "POOImmo",
   "version": "1.0.0",
-  "description": "Appli Alim",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass asset/sass/index.scss asset/css/app.css --watch --style=compressed"
+    "sass": "sass asset/sass/app.scss asset/css/app.min.css --watch --style=compressed"
   }
 }
