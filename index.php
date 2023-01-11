@@ -3,7 +3,6 @@ require_once('bdd/config.php');
 require_once('lib/annonce.php');
 $listeAnnonce = new Annonce($conn, "hello", "smlsqmlsqkmsqmlskmsq", 580.2, "2023-10-01", 1, 'achat');
 $listeAnnonce->supprimeAnnonce(1);
-
 $conn = null;
 ?>
 
