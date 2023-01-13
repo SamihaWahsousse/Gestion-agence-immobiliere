@@ -66,9 +66,9 @@ include_once('includes/header.php');
     <!--Searchebar-->
     <main>
         <section class="search-bar mt-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 mx-auto p-1 bg-light shadow-sm">
+            <div class="container-fluid ">
+                <div class="row justify-content-start flex-nowrap align-items-center ">
+                    <div class="col-lg-10 w-50 mx-auto p-1 bg-light shadow-sm">
                         <form>
                             <div>
                                 <div class="input-group">
@@ -82,6 +82,7 @@ include_once('includes/header.php');
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 Rechercher
                                             </button>
+
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="#"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -105,39 +106,44 @@ include_once('includes/header.php');
                                                             <path
                                                                 d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2Zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2Z" />
                                                         </svg>Garages/parking</a></li>
-
-
                                             </ul>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
-
                     </div>
-                    <div class="col-2 d-flex align-items-center justify-content-center">
+                    <!--Add Menu Gestion annonce dans le compte de l'agent immobilier-->
+                    <div class="dropdown w-25 text-center d-flex">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" data-target="#modalAddAnnonce">
+                            Gestion annonce
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./includes/add.php" data-toggle="modal"
+                                    data-target="#modalAddAnnonce">Ajouter annonce</a></li>
+                            <li><a class="dropdown-item" href="./includes/update.php">Modifier annonce</a></li>
+                            <li><a class="dropdown-item" href="./includes/delete.php">Supprimer annonce</a></li>
+                        </ul>
 
+                        <div class="col-1 d-flex align-items-center justify-content-center">
+                            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
+                                style="display:block;height:14px;width:14px;fill:currentColor" aria-hidden="true"
+                                role="presentation" focusable="false">
+                                <path
+                                    d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+                                </path>
+                            </svg>
+                            <p class="mb-0 ms-2">Filtre</p>
 
-                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
-                            style="display:block;height:14px;width:14px;fill:currentColor" aria-hidden="true"
-                            role="presentation" focusable="false">
-                            <path
-                                d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
-                            </path>
-                        </svg>
-                        <p class="mb-0 ms-2">filtre</p>
-
+                        </div>
                     </div>
                 </div>
             </div>
-
         </section>
 
+
         <section>
-
-
             <div class="container fluid">
                 <div class="row my-3">
                     <div class="col">
@@ -243,8 +249,59 @@ include_once('includes/header.php');
                 </div>
             </div>
 
-
         </section>
+        <!--Modal Ajouter annonce -->
+
+        <div class="modal fade" id="modalAddAnnonce" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Ajout nouvelle annonce</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="fermer"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" class=" text-center " id="formAddAnnonce">
+                            <div class="mb-2 form-floating">
+                                <input type="text" class="form-control" id="inputAnnonce"
+                                    placeholder="Saisissez titre de votre annonce" name="inputAnnonce">
+                                <label for="inputAnnonce" class="form-label">Titre</label>
+                            </div>
+
+                            <div class="mb-2 form-floating mt-2">
+                                <input type="text" class="form-control" id="inputDescription"
+                                    placeholder="Saisissez la description" name="inputDescription">
+                                <label for="inputDescription" class="form-label">Description</label>
+                            </div>
+
+                            <div class="mb-2 form-floating mt-2">
+                                <input type="text" class="form-control" id="inputDate" placeholder="DD/MM/YYYY"
+                                    name="inputDate">
+                                <label for="inputDate" class="form-label">Date annonce</label>
+                            </div>
+                            <div class="mb-2 form-floating mt-2">
+                                <input type="text" class="form-control" id="inputPrice"
+                                    placeholder="Saisissez le prix de logement" name="inputPrice">
+                                <label for="inputPrice" class="form-label">Prix</label>
+                            </div>
+
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="formAddFood" class="btn btn-primary"
+                                id="btnAddAnnonce">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
     </main>
 
 
@@ -271,10 +328,10 @@ include_once('includes/header.php');
 
 
 
-    <footer class="fixed-bottom ">
+    <footer class="my-auto ">
         <div class="row">
-            <div class="col-sm">
-                <p class="text-center text-light bg-dark"> © copyright 2023 - Mentions légales</p>
+            <div class="col-sm mb-0">
+                <p class="text-center text-light bg-dark mb-0"> © copyright 2023 - Mentions légales</p>
             </div>
 
         </div>
