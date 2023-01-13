@@ -37,7 +37,7 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
     
-        $user->register($prenom, $nom, $telephone, $email, $password);
+        $user->register($prenom, $nom, $email, $password);
     }
     
     $conn = null;

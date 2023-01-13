@@ -3,8 +3,9 @@ include_once('includes/header.php');
 require_once('bdd/config.php');
 require_once('lib/Query.php');
 require_once('lib/Annonce.php');
-$test = new Query();
+require_once('lib/operationPhoto.php');
 
+$test = new Query();
 /*if($_SERVER['REQUEST_METHOD']=='POST'){
     $ville = $_POST['ville'];
     $region = $_POST['region'];
@@ -15,27 +16,17 @@ $test = new Query();
     exit;
 }*/
 
+$test2 = new operationPhoto($conn);
+
 if (isset($_POST['upload'])) {
     $file = $_FILES['file'];
-    if ($file['size'] > 0 && $file['size'] <= 5000000) {
-        if (exif_imagetype($file['tmp_name']) == IMAGETYPE_JPEG) {
-            $file_name = $file['name'];
-            $file_tmp = $file['tmp_name'];
-            $file_destination = 'uploads/' . $file_name;
-            move_uploaded_file($file_tmp, $file_destination);
-            $sql = "INSERT INTO photo_prop (photo, id_annonce) VALUES (:file_path, :id_annonce)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':file_path', $file_destination);
-            $stmt->bindValue(':id_annonce', 26);
-            $stmt->execute();
-            header('Location: test.php');
-            exit;
-        } else {
-            echo "Invalid file type";
-        }
-    } else {
-        echo "Invalid file size";
-    }
+    $test2->ajoutePhoto($file);
+    header('location: test.php');
+    exit;
+}
+
+if (isset($_POST['delete'])) {
+    $test2->supprimePhoto(19);
 }
 
 
@@ -53,8 +44,9 @@ if (isset($_POST['upload'])) {
     <?php $test->findAll($conn,'type_propriete', 'id', 'type'); ?>
     <button type="submit">Envoyer</button>
 </form>
-
+<br>
 <form method="post" enctype="multipart/form-data">
     <input type="file" name="file">
     <input type="submit" value="Upload" name="upload">
+    <input type="submit" value="Delete" name="delete">
 </form>
