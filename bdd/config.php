@@ -7,7 +7,7 @@ $username = "root";
 $password = "";
 
 // Use the sprintf() function to construct the DSN string
-$dsn = sprintf('mysql:host=%s;dbname=%s', $host, $dbname);
+$dsn = sprintf('mysql:host=%s;dbname=%s; port=3306', $host, $dbname);
 
 // Connect to the database
 try {

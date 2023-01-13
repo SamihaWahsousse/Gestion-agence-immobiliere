@@ -8,7 +8,7 @@ class User
         $this->conn = $conn;
     }
 
-    public function register($prenom, $nom, $telephone, $email, $password)
+    public function register($prenom, $nom, $email, $password)
     {
         // store user information into database
         $stmt = $this->conn->prepare('INSERT INTO compte (prenom, nom, email, password, role) VALUES (:prenom, :nom, :email, :password, :role)');
@@ -31,7 +31,7 @@ class User
     {
         // Sanitize the input
         $sanitized_email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        if (filter_var($sanitizied_email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($sanitized_email, FILTER_VALIDATE_EMAIL)) {
             echo "This sanitized email address is considered valid. \n";
         }
 

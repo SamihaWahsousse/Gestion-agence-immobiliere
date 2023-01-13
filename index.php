@@ -1,9 +1,4 @@
 <?php
-require_once('bdd/config.php');
-require_once('lib/annonce.php');
-$listeAnnonce = new Annonce($conn, "hello", "smlsqmlsqkmsqmlskmsq", 580.2, "2023-10-01", 1, 'achat');
-$listeAnnonce->supprimeAnnonce(1);
-$conn = null;
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +23,6 @@ $conn = null;
 </head>
 
 <body>
-<<<<<<< HEAD
-=======
     <!-- je met le script javascript bootstrapp -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
@@ -77,8 +70,8 @@ $conn = null;
                                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                                 </svg> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Inscription</a></li>
-                                <li><a class="dropdown-item" href="#">Connexion</a></li>
+                                <li><a class="dropdown-item" href="register.php">Inscription</a></li>
+                                <li><a class="dropdown-item" href="login.php">Connexion</a></li>
                                 <li><a class="dropdown-item" href="#">Contactez-nous</a></li>
                             </ul>
                         </li>
@@ -299,15 +292,12 @@ $conn = null;
     <footer class="fixed-bottom ">
         <div class="row">
             <div class="col-sm">
-                <p class="text-center text-light bg-dark"> © copyright 2023 - Mentions légales</p>
+                <p class="text-center text-light bg-dark mb-0"> © copyright 2023 - Mentions légales</p>
             </div>
 
         </div>
 
     </footer>
-
-
->>>>>>> dev
 </body>
 
 <!-- je met le script javascript bootstrapp -->
