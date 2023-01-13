@@ -31,7 +31,7 @@ class User
     {
         // Sanitize the input
         $sanitized_email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        if (filter_var($sanitizied_email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($sanitized_email, FILTER_VALIDATE_EMAIL)) {
             echo "This sanitized email address is considered valid. \n";
         }
 
