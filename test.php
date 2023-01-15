@@ -19,14 +19,17 @@ $test = new Query();
 $test2 = new operationPhoto($conn);
 
 if (isset($_POST['upload'])) {
-    $file = $_FILES['file'];
-    $test2->ajoutePhoto($file);
+    $photos = $_FILES['files'];
+    $test2->ajoutePhoto($photos, 26);
     header('location: test.php');
     exit;
 }
 
+
 if (isset($_POST['delete'])) {
-    $test2->supprimePhoto(19);
+    $test2->supprimePhoto(26);
+    header('location: test.php');
+    exit;
 }
 
 
@@ -46,7 +49,7 @@ if (isset($_POST['delete'])) {
 </form>
 <br>
 <form method="post" enctype="multipart/form-data">
-    <input type="file" name="file">
+    <input type="file" name="files[]" multiple>
     <input type="submit" value="Upload" name="upload">
     <input type="submit" value="Delete" name="delete">
 </form>

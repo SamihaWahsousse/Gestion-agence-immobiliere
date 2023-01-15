@@ -9,27 +9,40 @@ class operationPhoto{
         $this->conn = $conn;
     }
 
-    public function ajoutePhoto($photo){
-        if ($photo['size'] > 0 && $photo['size'] <= 5000000) {
-            if (exif_imagetype($photo['tmp_name']) == IMAGETYPE_JPEG) {
-                $file_name = $photo['name'];
-                $file_tmp = $photo['tmp_name'];
-                $file_destination = 'uploads\\' . $file_name;
-                move_uploaded_file($file_tmp, $file_destination);
-                $sql = "INSERT INTO photo_prop (photo, id_annonce) VALUES (:file_path, :id_annonce)";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindValue(':file_path', $file_destination);
-                $stmt->bindValue(':id_annonce', 26);
+    public function ajoutePhoto($files, $id){
+        for ($i = 0; $i < count($files['name']); $i++) {
+            try {
+                $file_name = $files['name'][$i];
+                $query = "SELECT * FROM photo_prop WHERE photo = :file_name";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindValue(':file_name', $file_name);
                 $stmt->execute();
-                header('Location: test.php');
-                exit;
-            } else {
-                echo "type de fichier invalide";
+                if ($stmt->rowCount() > 0){
+                  throw new Exception("File already exists");
+                }
+                if ($files['size'][$i] > 0 && $files['size'][$i] <= 10000000) {
+                    if (exif_imagetype($files['tmp_name'][$i]) == IMAGETYPE_JPEG) {
+                        $file_tmp = $files['tmp_name'][$i];
+                        $file_destination = 'uploads\\' . $file_name;
+                        move_uploaded_file($file_tmp, $file_destination);
+                        $sql = "INSERT INTO photo_prop (photo, id_annonce) VALUES (:file_path, :id_annonce)";
+                        $stmt = $this->conn->prepare($sql);
+                        $stmt->bindValue(':file_path', $file_destination);
+                        $stmt->bindValue(':id_annonce', $id);
+                        $stmt->execute();
+                    } else {
+                        throw new Exception("Invalid file type");
+                    }
+                } else {
+                    throw new Exception("Invalid file size");
+                }
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
             }
-        } else {
-            echo "Taille de fichier invalide";
         }
     }
+    
+    
 
     public function supprimePhoto($id){
         $file_path = $this->getFilePath($id);
