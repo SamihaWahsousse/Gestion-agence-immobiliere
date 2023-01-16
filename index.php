@@ -148,7 +148,7 @@ include_once('includes/header.php');
                 <div class="row my-3">
                     <div class="col">
                         <div class="card" style="width: 14rem;">
-                            <img src="photoImmo/App1.jpg" class="card-img-top" alt="photoImmo/App1.jpg">
+                            <img src="uploads/App1.jpg" class="card-img-top" alt="photoImmo/App1.jpg">
                             <div class="card-body">
                                 <h5 class="card-title">Grenoble,France</h5>
                                 <p class="card-text">Apparetement 3 pièces

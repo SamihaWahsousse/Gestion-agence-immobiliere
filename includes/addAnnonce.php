@@ -3,7 +3,45 @@ include_once('header.php');
 require_once('../bdd/config.php');
 require_once('../lib/Query.php');
 require_once('../lib/utilities.php');
+require_once('../lib/operationPhoto.php');
+require_once('../lib/annonce.php');
 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $titleAnnonce   = $_POST['Titre'];
+    $descriptif     = $_POST['descriptif'];
+    $adresse        = $_POST['adresse'];
+    $surface        = $_POST['surface'];
+    $piece          = $_POST['piece'];
+    $garage         = $_POST['garage'];
+    $prix           = $_POST['prix'];
+    $action_prop    = $_POST['action_prop'];
+    $garage         = $_POST['garage'];
+    $photo          = $_FILES['files'];
+    $ville          = $_POST['ville'];
+    $region         = $_POST['region'];
+    $type_prop      = $_POST['type_propriete'];
+
+    $tabAction = array("vente", "location");
+    $tabGarage = array("0", "1");
+
+
+    if (
+        verifyInput($titleAnnonce) && verifyInput($descriptif) && verifyInput($adresse) && verifyInput($surface)
+        && verifyInput($piece) && verifyInput($prix) && verifyInputOption($action_prop, $tabAction) && verifyInputOption($garage, $tabGarage)
+    ) {
+        $image = new operationPhoto($conn);
+        $newAnnonce = new Annonce($conn, $titleAnnonce, $descriptif, $prix, $type_prop, $adresse, $piece, $surface, $garage, $region, $ville, $type_prop);
+        $newAnnonce->ajouteAnnonce();
+        $id_annonce = $newAnnonce->getIdAnnonce();
+        $image->ajoutePhoto($photo, $id_annonce);
+        header('location:index.php');
+        exit;
+    }
+}
+
+//
 
 ?>
 
@@ -23,13 +61,12 @@ require_once('../lib/utilities.php');
     </header>
 
 
-
     <body>
 
 
         <div class="container d-flex flex-column mt-4 py-0">
 
-            <form method="post" enctype="multipart/form-data" action="../lib/action.php" name="test">
+            <form method="POST" enctype="multipart/form-data" action="" name="test">
                 <div class="row justify-content-around ">
                     <div class="col-4 my-0">
 

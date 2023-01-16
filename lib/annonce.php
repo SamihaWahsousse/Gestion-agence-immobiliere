@@ -14,6 +14,12 @@ class Annonce
     public $region;
     public $ville;
     public $type_propriete;
+    private $id_annonce;
+
+    public function getIdAnnonce()
+    {
+        return $this->id_annonce;
+    }
 
     public function __construct(PDO $conn, $titre, $description, $prix, $type_annonce, $adresse, $nb_piece, $surface, $has_garage, $region, $ville, $type_propriete)
     {
@@ -53,6 +59,7 @@ class Annonce
             if ($stmt->execute() === true) {
                 echo "<script> alert ('Annonce ajoutée avec succès');</script>";
             }
+            $this->id_annonce = $this->conn->lastInsertId();
         } catch (PDOException $e) {
             echo $e;
         }
