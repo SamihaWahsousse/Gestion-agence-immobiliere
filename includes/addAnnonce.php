@@ -1,5 +1,9 @@
 <?php
 include_once('header.php');
+require_once('../bdd/config.php');
+require_once('../lib/Query.php');
+require_once('../lib/utilities.php');
+
 
 ?>
 
@@ -19,118 +23,109 @@ include_once('header.php');
     </header>
 
 
+
     <body>
 
 
         <div class="container d-flex flex-column mt-4 py-0">
 
-            <form method="post">
+            <form method="post" enctype="multipart/form-data" action="../lib/action.php" name="test">
                 <div class="row justify-content-around ">
                     <div class="col-4 my-0">
 
                         <div class="form-group ">
-                            <label for="typeImmo" class="form-label">Titre de l'annonce
+                            <label for="typeImmo" class="form-label">Titre de l'annonce* :
                             </label>
                             <input type="text" class="form-control text-muted" id="inputPrenom" name="Titre"
-                                placeholder="Prénom" required>
+                                placeholder="Titre" required autocomplete="off">
                         </div>
+
                         <div class="form-group my-3 ">
-                            <label for="typeImmo" class="form-label">Selectionner le type de bien immobilier :
-                            </label>
-                            <select class="form-select" id="typeImmo" name="listImmo">
-                                <option>Appartement</option>
-                                <option>Maison</option>
-                                <option>Local commercial</option>
-                                <option>Garage</option>
-                            </select>
+                            <label for="typeImmo" class="form-label">Selectionner le type de bien immobilier : </label>
+                            <?php $var = new Query();
+                            $var->findAll($conn, 'type_propriete', 'id', 'type'); ?>
+
                         </div>
+
                         <div class="form-group my-3 ">
-                            <label for="typeImmo" class="form-label">Titre de l'annonce
-                            </label>
-                            <input type="text" class="form-control text-muted" id="inputPrenom" name="Titre"
-                                placeholder="Prénom" required>
+                            <label for="descriptif" class="form-label"> Descriptif de l'annonce* : </label>
+                            <textarea class="form-control descriptif" id="descriptif" name="descriptif"></textarea>
                         </div>
+
                         <div class="form-group my-3 "> <label for="surface" class="form-label">
-                                Descriptif de l'annonce?
-                            </label>
-                            <input type="text" class="form-control" id="surface">
+                                Adresse du propriété* : </label>
+                            <input type="text" class="form-control" id="adresse" name="adresse">
                         </div>
-                        <div class="form-group my-3 "> <label for="surface" class="form-label">
-                                Adresse du propriété
-                            </label>
-                            <input type="text" class="form-control" id="surface">
+
+                        <div class="form-group my-3 ">
+                            <label for="region" class="form-label">Quelle région ?</label>
+                            <?php
+                            $var->findAll($conn, 'region', 'id', 'nom'); ?>
                         </div>
+                        <div class="form-group my-3">
+                            <label for="ville" class="form-label">Quelle ville ?</label>
+                            <?php
+                            $var->findAll($conn, 'ville', 'id', 'nom'); ?>
+                        </div>
+
+                    </div>
+
+                    <div class="col-4">
+
                         <div class="form-group my-3 ">
                             <label for="surface" class="form-label">
                                 Quelle est la surface de votre bien ?
                             </label>
-                            <input type="text" class="form-control" id="surface">
+                            <input type="text" class="form-control" id="surface" name="surface">
                         </div>
-
-                    </div>
-
-                    <div class="col-4 my-0">
-
                         <div class="form-group my-3 ">
                             <label for="piece" class="form-label">Combien de pièces ?</label>
-                            <input type="text" class="form-control" id="piece">
+                            <input type="text" class="form-control" id="piece" name="piece">
                         </div>
-                        <div class="form-group my-3 ">
-                            <label for="region" class="form-label">Quelle région ?</label>
-                            <select class="form-select" id="region" name="region">
-                                <option>Auvergne-Rhone-Alpe</option>
-                                <option>Bourgogne-Franche-Comté </option>
-                                <option>Hauts-de-France</option>
-                            </select>
-                        </div>
-                        <div class="form-group my-3">
-                            <label for="ville" class="form-label">Quelle ville ?</label>
-                            <select class="form-select" id="ville" name="ville">
-                                <option>Grenoble</option>
-                                <option>Paris </option>
-                                <option>Nice</option>
 
-                            </select>
-                        </div>
                         <legend class="legend-size">Garage</legend>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Avec</label>
+                            <input class="form-check-input" type="radio" name="garage" id="garage_exist" value="1"
+                                checked="checked">
+                            <label class="form-check-label" for="garage_exist">Avec</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2">
-                            <label class="form-check-label" for="inlineRadio2">Sans</label>
+                            <input class="form-check-input" type="radio" name="garage" id="garage_notexist" value="0">
+                            <label class="form-check-label" for="garage_notexist">Sans</label>
                         </div>
+
                         <div class="form-group my-3 ">
-                            <label for="piece" class="form-label">Prix en €</label>
-                            <input type="text" class="form-control" id="piece">
+                            <label for="prix" class="form-label">Prix en €</label>
+                            <input type="text" class="form-control" id="prix" name="prix" required>
                         </div>
                         <div>
                             <legend class="legend-size">Action</legend>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                    value="option1">
-                                <label class="form-check-label" for="inlineRadio1">Vente</label>
+                                <input class="form-check-input" type="radio" name="action_prop" id="vente" value="vente"
+                                    required>
+                                <label class="form-check-label" for="vente">Vente</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                    value="option2">
-                                <label class="form-check-label" for="inlineRadio2">location</label>
+                                <input class="form-check-input" type="radio" name="action_prop" id="location"
+                                    value="location">
+                                <label class="form-check-label" for="location">location</label>
                             </div>
-                            <label for="formFileSm" class="form-label">Ajouter photos</label>
-                            <input class="form-control form-control-sm" id="formFileSm" type="file" />
+
+
+                            <label for="photo" class="form-label">Ajouter photos</label>
+                            <input class="form-control form-control-sm" id="photo" type="file" name="files[]"
+                                multiple />
 
                         </div>
                     </div>
                 </div>
-
-
                 <div class="text-center mt-2">
                     <button type="submit" class="btn btn-success w-25 text-center" value="submit">Créer</button>
                 </div>
             </form>
+
+
+
         </div>
         </main>
 
