@@ -42,6 +42,7 @@
     }
 
     $conn = null;
+    header('location:index.php');
 
     ?>
 

@@ -36,7 +36,7 @@ class User
         }
 
         $password = htmlspecialchars($password, ENT_QUOTES);
-        
+
         // Construct the query
         $query = "SELECT * FROM compte WHERE email= ?";
         $stmt = $this->conn->prepare($query);
@@ -47,29 +47,37 @@ class User
 
         // Fetch the result
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         // Check if a row was returned
         if ($row) {
             if (password_verify($password, $row['password'])) {
                 // Start a new session
                 session_start();
-    
+
                 // Store the user's information in the session
                 $_SESSION['user_id'] = $row['id'];
-    
+
                 // Redirect the user to the page
                 header("Location: index.php");
                 exit;
-
             } else {
                 // password is invalid
                 header("location: login.php");
                 exit;
             }
-    
         } else {
             header("location: login.php");
             exit;
         }
     }
+
+
+
+    /* public function logout($dataUser)
+    {
+        $_SESSION['authentificated'] = true;
+        $_SESSION['id_user'] =$dataUser['id'],
+           
+        ];
+    }*/
 }

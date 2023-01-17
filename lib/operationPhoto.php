@@ -25,15 +25,14 @@ class operationPhoto
                 if ($files['size'][$i] > 0 && $files['size'][$i] <= 10000000) {
                     if (exif_imagetype($files['tmp_name'][$i]) == IMAGETYPE_JPEG) {
                         $file_tmp = $files['tmp_name'][$i];
-                        $file_destination = 'uploads\\' . $file_name;
+                        $file_destination = '../uploads/' . $file_name;
                         move_uploaded_file($file_tmp, $file_destination);
 
                         $sql = "INSERT INTO photo_prop (photo, id_annonce) VALUES (:file_path, :id_annonce)";
                         $stmt = $this->conn->prepare($sql);
-                        $stmt->bindValue(':file_path', $file_destination);
+                        $stmt->bindValue(':file_path', 'uploads/' . $file_name);
                         $stmt->bindValue(':id_annonce', $id);
                         $stmt->execute();
-                        var_dump($files['files']['tmp_name'][$i]);
                     } else {
                         throw new Exception("Invalid file type");
                     }
