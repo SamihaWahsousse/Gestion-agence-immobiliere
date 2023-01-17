@@ -17,7 +17,8 @@
         <!-- Just an image -->
         <nav class="navbar navbar-light logo">
             <a class="navbar-brand p-3" href="index.php">
-                <img src="img/brand-removebg-preview.png" width="150" height="150" alt="">
+                <img src="Logo_POOIMMO.png" width="300" height="150" alt="">
+
             </a>
         </nav>
     </header>
@@ -28,7 +29,7 @@
 
     require_once('lib/user.php');
     $user = new User($conn);
-    
+
     // store user information into database
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $prenom = $_POST['prenom'];
@@ -36,16 +37,17 @@
         $telephone = $_POST['telephone'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-    
+
         $user->register($prenom, $nom, $telephone, $email, $password);
     }
-    
+
     $conn = null;
+    header('location:index.php');
 
     ?>
 
     <main>
-        <div class="d-flex flex-column m-3 p-3 justify-content-center align-items-center">
+        <div class="d-flex flex-column  justify-content-center align-items-center">
             <div class="my-2">
                 <h1>Créer un compte</h1>
             </div>
@@ -70,7 +72,7 @@
                     <input type="password" class="form-control" id="inputPassword" name="password"
                         placeholder="Mot de passe" required>
                 </div>
-                <button type="submit" class="btn btn-success w-50 ">Créer</button>
+                <button type="submit" class="btn btn-success w-50 " value="submit">Créer</button>
             </form>
         </div>
     </main>

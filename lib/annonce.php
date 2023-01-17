@@ -14,6 +14,12 @@ class Annonce
     public $region;
     public $ville;
     public $type_propriete;
+    private $id_annonce;
+
+    public function getIdAnnonce()
+    {
+        return $this->id_annonce;
+    }
 
     public function __construct(PDO $conn, $titre, $description, $prix, $type_annonce, $adresse, $nb_piece, $surface, $has_garage, $region, $ville, $type_propriete)
     {
@@ -29,7 +35,6 @@ class Annonce
         $this->region = $region;
         $this->ville = $ville;
         $this->type_propriete = $type_propriete;
-        
     }
 
 
@@ -41,25 +46,28 @@ class Annonce
             $stmt->bindValue(':titre', $this->titre);
             $stmt->bindValue(":description", $this->description);
             $stmt->bindValue(':prix', $this->prix);
-            $stmt->bindValue(':type_annonce',$this->type_annonce);
-            $stmt->bindValue(':adresse',$this->adresse);
-            $stmt->bindValue(':nb_piece',$this->nb_piece);
-            $stmt->bindValue(':surface',$this->surface);
-            $stmt->bindValue(':has_garage',$this->has_garage);
-            $stmt->bindValue(':id_ville',$this->ville);
-            $stmt->bindValue(':id_region',$this->region);
-            $stmt->bindValue(':id_type_propriete',$this->type_propriete);
+            $stmt->bindValue(':type_annonce', $this->type_annonce);
+            $stmt->bindValue(':adresse', $this->adresse);
+            $stmt->bindValue(':nb_piece', $this->nb_piece);
+            $stmt->bindValue(':surface', $this->surface);
+            $stmt->bindValue(':has_garage', $this->has_garage);
+            $stmt->bindValue(':id_ville', $this->ville);
+            $stmt->bindValue(':id_region', $this->region);
+            $stmt->bindValue(':id_type_propriete', $this->type_propriete);
 
-            
-            $stmt->execute();
+            //execute sql insert et afficher une fenetre - annonce bien ajoutée
+            if ($stmt->execute() === true) {
+                echo "<script> alert ('Annonce ajoutée avec succès');</script>";
+            }
+            $this->id_annonce = $this->conn->lastInsertId();
         } catch (PDOException $e) {
             echo $e;
         }
     }
 
-    public function supprimeAnnonce($id){
-        try 
-        {
+    public function supprimeAnnonce($id)
+    {
+        try {
             $stmt = $this->conn->prepare('DELETE FROM annonce WHERE id = :id_annonce');
             $stmt->bindValue(':id_annonce', $id);
             $stmt->execute();
@@ -68,4 +76,3 @@ class Annonce
         }
     }
 }
-?>

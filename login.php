@@ -17,7 +17,7 @@
         <!-- Just an image -->
         <nav class="navbar navbar-light logo">
             <a class="navbar-brand p-3" href="index.php">
-                <img src="img/brand-removebg-preview.png" width="150" height="150" alt="">
+                <img src="Logo_POOIMMO.png" width="300" height="150" alt="">
             </a>
         </nav>
     </header>
@@ -29,15 +29,13 @@
     require_once('lib/user.php');
     $user = new User($conn);
     // verify login credentials
-    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $password = $_POST['password'];
-
         $user->login($email, $password);
-
     }
-    
+
     ?>
 
     <main>

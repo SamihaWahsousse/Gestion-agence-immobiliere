@@ -1,5 +1,6 @@
 <?php
-class Query {
+class Query
+{
 
     /*private function conn() {
         // Store the connection details in variables
@@ -24,8 +25,31 @@ class Query {
     private function dieConnect(){
         $conn = null;
     }*/
-    
-    public function findAll($conn, $table, $value, $text){
+
+    //declarer une variable private pour chaque table "ville-region-type_immo"
+    //qui va stocker un tableau des id de chaque "option" du dropdown list
+
+    private $tableVille = [];
+    public function getTableVille()
+    {
+        return $this->tableVille;
+    }
+
+    private $tableRegion = [];
+    public function getTableRegion()
+    {
+        return $this->tableRegion;
+    }
+
+    private $tableTypePropriete = [];
+    public function getTableTypePropriete()
+    {
+        return $this->tableTypePropriete;
+    }
+
+
+    public function findAll($conn, $table, $value, $text)
+    {
         //$this->conn();
         $sql = "SELECT $value, $text FROM $table";
         $stmt = $conn->prepare($sql);
@@ -33,10 +57,19 @@ class Query {
         $data = $stmt->fetchAll();
         //$this->dieConnect();
         echo "<select class='form-select' name='$table' id=''>";
-        foreach($data as $row) {
+        foreach ($data as $row) {
             echo "<option value='" . $row[$value] . "'>" . $row[$text] . "</option>";
+
+            //Remplir les tableaux contenant les id de "region" "ville" "type_propriete" de récupérer depuis la BDD
+            if ($table == 'ville') {
+                array_push($this->tableVille, $row[$value]);
+            } elseif ($table == 'type_propriete') {
+                array_push($this->tableTypePropriete, $row[$value]);
+            } else {
+
+                array_push($this->tableRegion, $row[$value]);
+            }
         }
         echo "</select>";
     }
 }
-?>
