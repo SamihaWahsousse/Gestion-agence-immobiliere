@@ -36,8 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newAnnonce->ajouteAnnonce();
         $id_annonce = $newAnnonce->getIdAnnonce();
         $image->ajoutePhoto($photo, $id_annonce);
-        // header('location:../index.php');
+        //header('location:../index.php');
         // exit;
+        echo "test";
     }
 }
 

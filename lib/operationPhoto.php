@@ -22,7 +22,7 @@ class operationPhoto
                 if ($stmt->rowCount() > 0) {
                     throw new Exception("File already exists");
                 }
-                if ($files['size'][$i] > 0 && $files['size'][$i] <= 10000000) {
+                if ($files['size'][$i] > 0 && $files['size'][$i] <= 500000000) {
                     if (exif_imagetype($files['tmp_name'][$i]) == IMAGETYPE_JPEG) {
                         $file_tmp = $files['tmp_name'][$i];
                         $file_destination = '../uploads/' . $file_name;

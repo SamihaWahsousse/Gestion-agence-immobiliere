@@ -57,7 +57,7 @@ require_once('lib/afficheannonce.php');
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="register.php">S'inscrire</a></li>
                                 <li><a class="dropdown-item" href="login.php">Se connecter</a></li>
-                                <li><a class="dropdown-item" href="#">se déconnecter</a></li>
+                                <li><a class="dropdown-item" href="logout.php">se déconnecter</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -71,15 +71,22 @@ require_once('lib/afficheannonce.php');
         <section class="search-bar mt-2">
             <div class="container-fluid ">
                 <div class="row justify-content-start flex-nowrap align-items-center ">
-                    <div class="col-lg-10 w-50 mx-auto p-1 bg-light shadow-sm">
-                        <form action="search.php" method="POST">
+                    <div class="col-lg-2">
+                        <a href="index.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                            </svg> Revenir à l'Accueil</a>
+                    </div>
+                    <div class="col-lg-8 w-50 mx-auto p-1 bg-light shadow-sm">
+                        <form method="get">
                             <div class="input-group">
-                                <input type="text" name="search" placeholder="Quelle région? Quelle ville?.."
+                                <input type="text" name="query" placeholder="Quelle région? Quelle ville?.."
                                     class="form-control me-2">
                                 <div class="input-group-append">
                                     <!-- Bouton rechercher -->
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-secondary" name="submit_search">
+                                        <button type="submit" class="btn btn-secondary">
                                             Rechercher
                                         </button>
                                     </div>
@@ -113,14 +120,49 @@ require_once('lib/afficheannonce.php');
 
 
         <section>
-            <?php if (isset($_GET['page'])) {
-                $page = $_GET['page'];
-                afficheAnnonce($page, 6);
+            <?php
+            if (isset($_GET['query'])) {
+                $query = $_GET['query'];
+                $stmt = $conn->prepare("SELECT * FROM annonce
+                JOIN region ON id_region = region.id
+                JOIN ville ON id_ville = ville.id
+                WHERE region.nom LIKE :query OR ville.nom LIKE :query;");
+                $stmt->bindValue(':query', "%$query%");
+                $stmt->execute();
+                // set the resulting array to associative
+                $result = $stmt->fetchAll();
+                echo '<div class="container">';
+                echo '<div class="row">';
+                foreach ($result as $row) {
+                    $query = "SELECT * FROM photo_prop
+                    WHERE id_annonce = :id";
+                    $stmt = $conn->prepare($query);
+                    $stmt->bindValue(':id', $row['id']);
+                    $stmt->execute();
+                    $img = $stmt->fetch();
+                    var_dump($img);
+                    echo '<div class="col-sm-6 col-md-3 col-lg-4 my-2">';
+                    echo '<div class="card h-100 w-75">';
+                    echo '<img class="card-img-top h-75 w-100" src="' . $img['photo'] . '" alt="property image">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $row['titre'] . '</h5>';
+                    echo '<p class="card-text">' . $row['description'] . '</p>';
+                    echo '<p class="card-text">' . $row['prix'] . '€' . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+                echo '</div>';
+                echo '</div>';
             } else {
-                afficheAnnonce(1, 6);
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
+                    afficheAnnonce($page, 6);
+                } else {
+                    afficheAnnonce(1, 6);
+                }
             }
             ?>
-
 
         </section>
         <!--Modal Ajouter annonce -->

@@ -56,7 +56,8 @@ class User
 
                 // Store the user's information in the session
                 $_SESSION['user_id'] = $row['id'];
-
+                $var = $_SESSION['user_name'] = $row['nom'] . ' ' . $row['prenom'];
+                return $var;
                 // Redirect the user to the page
                 header("Location: index.php");
                 exit;
@@ -76,8 +77,9 @@ class User
     /* public function logout($dataUser)
     {
         $_SESSION['authentificated'] = true;
-        $_SESSION['id_user'] =$dataUser['id'],
-           
-        ];
+        $_SESSION['id_user'] = $dataUser['id'];
+        session_start();
+        session_destroy();
+        header('location:login.php');
     }*/
 }
