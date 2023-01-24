@@ -55,9 +55,10 @@ require_once('lib/afficheannonce.php');
                                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                                 </svg> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="register.php">S'inscrire</a></li>
+                                <li><a class="dropdown-item" href="register.php">S'inscrire</a>
+                                </li>
                                 <li><a class="dropdown-item" href="login.php">Se connecter</a></li>
-                                <li><a class="dropdown-item" href="logout.php">se déconnecter</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Se déconnecter</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -123,7 +124,7 @@ require_once('lib/afficheannonce.php');
             <?php
             if (isset($_GET['query'])) {
                 $query = $_GET['query'];
-                $stmt = $conn->prepare("SELECT * FROM annonce
+                $stmt = $conn->prepare("SELECT annonce.id,titre,description,prix FROM annonce
                 JOIN region ON id_region = region.id
                 JOIN ville ON id_ville = ville.id
                 WHERE region.nom LIKE :query OR ville.nom LIKE :query;");
@@ -140,7 +141,7 @@ require_once('lib/afficheannonce.php');
                     $stmt->bindValue(':id', $row['id']);
                     $stmt->execute();
                     $img = $stmt->fetch();
-                    var_dump($img);
+
                     echo '<div class="col-sm-6 col-md-3 col-lg-4 my-2">';
                     echo '<div class="card h-100 w-75">';
                     echo '<img class="card-img-top h-75 w-100" src="' . $img['photo'] . '" alt="property image">';

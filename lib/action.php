@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $image = new operationPhoto($conn);
         $newAnnonce = new Annonce($conn, $titleAnnonce, $descriptif, $prix, $type_prop, $adresse, $piece, $surace, $garage, $region, $ville, $type_prop);
         $newAnnonce->ajouteAnnonce();
-        $image->ajoutePhoto($photo, getIdAnnonce());
-        echo " crée";
+        // $image->ajoutePhoto($photo, getIdAnnonce());
+        echo "Annonce crée !";
     }
 }
     //vérifier si tous les champs sont remplis dropdowns select ville 

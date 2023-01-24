@@ -19,7 +19,7 @@ class User
             $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT));
             $stmt->bindValue(':role', 'client');
             $stmt->execute();
-            header("location: confirmation.php");
+            header("location: index.php");
             exit;
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
@@ -32,7 +32,7 @@ class User
         // Sanitize the input
         $sanitized_email = filter_var($email, FILTER_SANITIZE_EMAIL);
         if (filter_var($sanitized_email, FILTER_VALIDATE_EMAIL)) {
-            echo "This sanitized email address is considered valid. \n";
+            //echo "This sanitized email address is considered valid. \n";
         }
 
         $password = htmlspecialchars($password, ENT_QUOTES);
@@ -56,8 +56,8 @@ class User
 
                 // Store the user's information in the session
                 $_SESSION['user_id'] = $row['id'];
-                $var = $_SESSION['user_name'] = $row['nom'] . ' ' . $row['prenom'];
-                return $var;
+                //$var = $_SESSION['user_name'] = $row['nom'] . ' ' . $row['prenom'];
+                //return $var;
                 // Redirect the user to the page
                 header("Location: index.php");
                 exit;
@@ -71,15 +71,4 @@ class User
             exit;
         }
     }
-
-
-
-    /* public function logout($dataUser)
-    {
-        $_SESSION['authentificated'] = true;
-        $_SESSION['id_user'] = $dataUser['id'];
-        session_start();
-        session_destroy();
-        header('location:login.php');
-    }*/
 }
